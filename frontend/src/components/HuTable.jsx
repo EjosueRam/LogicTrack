@@ -29,7 +29,7 @@ const HuSearchTable = ({ onHuChange }) => {
 
   return (
     <div className="bg-white p-4">
-      <h2 className="text-lg font-bold mb-4">Buscar HU Específicos</h2>
+      <h2 className="text-lg font-bold mb-4">Registro de BT</h2>
       <div className="grid grid-cols-2 gap-4">
         <input
           type="text"

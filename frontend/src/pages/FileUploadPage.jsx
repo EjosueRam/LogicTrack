@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { extractAndCompareFile, saveHuInternals, getHuInternals, updateHuInternalsStatus } from '../api/FileUpload.api.js';
-import DataTable from 'datatables.net';
+import { extractAndCompareFile, saveHuInternals, getHuInternals} from '../api/FileUpload.api.js';
+import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import 'datatables.net-dt/css/dataTables.dataTables.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -62,16 +62,10 @@ const FileUploadPage = ({ scannedHuInternals = [] }) => {
                 </button>
             </form>
             <DataTable
-                data={huInternalsState}
+              data={huInternalsState}
                 columns={[
-                    { title: 'HUInternal', data: 'hu_internal' },
-                    {
-                        title: 'Estado',
-                        data: 'estado',
-                        render: (data) => data === 'Ingreso a 2a revisión'
-                            ? '<i class="fas fa-check text-green-500"></i>'
-                            : '<i class="fas fa-times text-red-500"></i>'
-                    }
+                    { title: 'ID', data: 'id' },
+                    { title: 'Estado', data: 'data', render: (data) => data === 'Ingreso a 2a revisión' ? 'Ingreso a 2a revisión' : 'Pendiente' }
                 ]}
                 className="display"
             />

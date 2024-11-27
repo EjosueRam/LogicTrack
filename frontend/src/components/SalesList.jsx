@@ -21,7 +21,7 @@ export function SalesList() {
       setSales(sortedData);
       setFilteredSales(sortedData);
 
-      // Establecer la página actual al mes más reciente
+      // Establece la página actual al mes más reciente
       const mostRecentMonthYear = new Date(sortedData[0].Date_time).toLocaleString('default', { month: 'long', year: 'numeric' });
       const monthYears = Object.keys(scansByMonthYear(sortedData));
       setCurrentPage(monthYears.indexOf(mostRecentMonthYear));
@@ -149,7 +149,6 @@ export function SalesList() {
         />
       </div>
 
-      {/* Botón para volver al inicio */}
       {showScrollButton && (
         <button
           onClick={scrollToTop}

@@ -10,11 +10,11 @@ import LoginPage from './pages/LoginPage.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { AuthContext } from './context/AuthContext.jsx';
 import HuGeneratedPage from './pages/HuGeneratedPage.jsx';
-import { HuGeneratedForm } from './pages/HuGeneratedForm.jsx';
+import  {HuGeneratedForm}  from './pages/HuGeneratedForm.jsx';
 import Navbar from './components/Navbar';
 import Logo from './components/Footer.jsx';
-import FileUploadPage from './pages/FileUploadPage.jsx'; // Importa el nuevo componente
-import { getHuInternals } from './api/FileUpload.api.js'; // Asegúrate de que la ruta sea correcta
+import FileUploadPage from './pages/FileUploadPage.jsx';
+import { getHuInternals } from './api/FileUpload.api.js';
 import "./App.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 

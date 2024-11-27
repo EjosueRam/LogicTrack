@@ -31,7 +31,7 @@ export function ScanList() {
 
   useEffect(() => {
     async function LoadScan() {
-      const res = await getAllScan();
+      const res = await getAllScans();
       const sortedData = res.data.sort((a, b) => new Date(b.date_hour) - new Date(a.date_hour));
       setScan(sortedData);
       setFilteredScan(sortedData);

@@ -6,7 +6,6 @@ import { getHuInternals } from "../api/FileUpload.api.js";
 import { AuthContext } from "../context/AuthContext";
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
-import $ from 'jquery';
 import 'datatables.net-dt/css/dataTables.dataTables.css';
 
 

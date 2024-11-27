@@ -411,6 +411,7 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
                                             <option value="A5">A5</option>
                                             <option value="A6">A6</option>
                                             <option value="A7">A7</option>
+                                            <option value="A7">A8</option>
                                         </select>
                                     </td>
                                 </tr>
