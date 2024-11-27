@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'backend.apps.scanner',
     'backend.apps.uploadfile',
-
+    'backend.apps.sales',
+    'backend.apps.hu_generated',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +132,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5175",
+    "http://localhost:5174",
 ]
 REST_FRAMEWORK = {
     ...: ...,

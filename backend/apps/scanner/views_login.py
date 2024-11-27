@@ -1,11 +1,15 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from .forms import CustomLoginForm
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
+@csrf_exempt
 def login_view(request):
+    form = None
     if request.method == 'POST':
+        data = json.loads(request.body)
         form = CustomLoginForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -23,5 +27,7 @@ def login_view(request):
                 })
             else:
                 return JsonResponse({'error': 'Invalid credentials'}, status=400)
+        else: return JsonResponse({'error': 'Invalid form data'}, status=400)
+    else : return  JsonResponse({'error': 'POST request required'}, status=400)
 
-    return render(request, 'login.html', {'form': form})
+

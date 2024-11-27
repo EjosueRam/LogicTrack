@@ -12,7 +12,7 @@ import { AuthContext } from './context/AuthContext.jsx';
 import HuGeneratedPage from './pages/HuGeneratedPage.jsx';
 import  {HuGeneratedForm}  from './pages/HuGeneratedForm.jsx';
 import Navbar from './components/Navbar';
-import Logo from './components/Footer.jsx';
+import Footer from './components/Footer.jsx';
 import FileUploadPage from './pages/FileUploadPage.jsx';
 import { getHuInternals } from './api/FileUpload.api.js';
 import "./App.css";
@@ -133,7 +133,7 @@ function App() {
             />
           </Routes>
         </div>
-        <Logo />
+        <Footer className="bg-gray-100 text-center text-sm p-4" />
       </div>
       <Toaster />
     </div>
