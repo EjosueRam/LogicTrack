@@ -10,7 +10,7 @@ def login_view(request):
     form = None
     if request.method == 'POST':
         data = json.loads(request.body)
-        form = CustomLoginForm(request, data=request.POST)
+        form = CustomLoginForm(request, data)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')

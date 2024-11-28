@@ -78,10 +78,10 @@ export function SalesList() {
   };
 
   return (
-    <div className="w-full overflow-x-auto">
-      <div className="flex mb-4">
+      <div className="min-h-screen w-full flex flex-col">
+      <div className="flex flex-col md:flex-row mb-4">
         {/* Input para buscar por HU */}
-        <div className="flex items-center">
+        <div className="flex items-center w-full md:w-1/2 mb-4 md:mb-0">
           <input
             type="text"
             placeholder="Buscar por HU"
@@ -91,7 +91,7 @@ export function SalesList() {
           />
           <button
             onClick={handleSearchByHu}
-            className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out"
+            className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out ml-2"
           >
             🔍
           </button>
@@ -116,7 +116,7 @@ export function SalesList() {
       )}
 
       {/* Barra de navegación por meses y años */}
-      <div className="flex justify-center mt-4">
+      <div className="flex flex-wrap justify-center mt-4">
         {monthYears.map((monthYear, index) => (
           <button
             key={index}

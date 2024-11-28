@@ -12,7 +12,7 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/login/', { username: email, password });
+            const response = await axios.post('http://localhost:8000/scanner/login/', { username: email, password });
             login(response.data.user);
             navigate('/ScannerPage'); // Ruta protegida después del inicio de sesión
         } catch (error) {

@@ -26,6 +26,7 @@ const FileUploadPage = ({ scannedHuInternals = [] }) => {
             if (response.status === 200) {
                 toast.success('Archivo procesado con éxito');
                 const huInternals = response.data.huInternals || [];
+                console.log  (huInternals);
                 // Guardar los datos extraídos
                 await saveHuInternals(huInternals);
                 setHuInternalsState(huInternals);

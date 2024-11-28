@@ -218,8 +218,13 @@ export function ScanList() {
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
-        containerClassName={'pagination'}
-        activeClassName={'active'}
+        containerClassName={'pagination flex justify-center space-x-2 mt-4'}
+        activeClassName={'active bg-blue-500 text-white'}
+        pageClassName={'px-3 py-1 border rounded'}
+        previousClassName={'px-3 py-1 border rounded'}
+        nextClassName={'px-3 py-1 border rounded'}
+        breakClassName={'px-3 py-1 border rounded'}
+        disabledClassName={'opacity-50 cursor-not-allowed'}
       />
     </div>
   );

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const huGeneratedApi = axios.create({
-    baseURL: 'http://localhost:8000/hu-generated/',
+    baseURL: 'http://localhost:8000/hu-generated/api/v1/hu-generated/',
 });
 
 // Función para obtener todos los HU generados

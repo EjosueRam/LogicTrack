@@ -26,6 +26,7 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
     const LENGTH_69 = 69;
     const LENGTH_68 = 68;
     const LENGTH_66 = 66;
+    const LENGTH_70 =70;
     const inputRefs = useRef([]);
     const navigate = useNavigate();
     const params = useParams();
@@ -53,6 +54,13 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
                 material: dataMatrix.slice(29, 39),
                 date_hu: dataMatrix.slice(58, 66)
             };
+        } else if (length === LENGTH_70) {
+            return {
+                hu: dataMatrix.slice(0, 20),
+                linea: dataMatrix.slice(4, 6),
+                material: dataMatrix.slice(29, 39),
+                date_hu: dataMatrix.slice(66, 70)
+            };
         } else {
             console.error('error longitud no valida');
             return {};
@@ -65,7 +73,7 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
 
         const scannedHuInternal = value.split(',')[0];
 
-        if (value.length === LENGTH_69 || value.length === LENGTH_68 || value.length === LENGTH_66) {
+        if (value.length === LENGTH_69 || value.length === LENGTH_68 || value.length === LENGTH_66 || value.length === LENGTH_70) {
             const { hu, linea, material, date_hu } = extractData(value);
             updatedRows[index].hu = hu;
             updatedRows[index].linea = linea;

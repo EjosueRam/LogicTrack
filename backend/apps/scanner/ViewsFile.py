@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore", category=UserWarning, module='xlrd')
 def upload_file(request):
     if request.method == 'POST':
         try:
-            print("Request received")  # Log para verificar si la solicitud llega
+            print("Request received")
             file = request.FILES.get('file')
             if not file:
                 return JsonResponse({'error': 'No file provided'}, status=400)

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import ScannerPage from './pages/scannerpage.jsx';
 import { ScannerFormPage } from './pages/ScannerFormPage.jsx';
 import SalesPage from './pages/salespage.jsx';
@@ -41,7 +41,7 @@ function App() {
     const idPattern = /\/\d+$/; // Patrón para detectar un ID al final de la ruta
     return idPattern.test(pathname);
   };
-
+// show of the entires of routes of the main app
   return (
     <div className="flex h-screen">
       {location.pathname !== '/login' && !containsId(location.pathname) && <Navigation />}
@@ -50,7 +50,7 @@ function App() {
         <div className={`flex-1 overflow-auto ${isAuthenticated && location.pathname !== '/login' ? 'pt-12' : ''}`}>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/' element={<Navigate to='/ScannerPage' />} />
+            <Route path='/' element={<Navigate to='/login' />} />
             <Route
               path='/ScannerPage'
               element={

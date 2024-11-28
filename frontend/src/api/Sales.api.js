@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const salesApi = axios.create({
-    baseURL: 'http://localhost:8000/sales/api/tester/sales/',
+    baseURL: 'http://localhost:8000/sales/api/v1/sales/',
 });
 
 // Función para obtener todas las ventas

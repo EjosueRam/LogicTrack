@@ -7,7 +7,7 @@ const scannerApi = axios.create({
 
 // Instancia para el guardado y visualización de datos en FileUpload
 const fileUploadApi = axios.create({
-  baseURL: 'http://localhost:8000/fileupload/hu-internals/',
+  baseURL: 'http://localhost:8000/fileupload/api/hu-internals/',
 });
 
 // Función para subir el archivo y extraer datos
