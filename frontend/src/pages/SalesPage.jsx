@@ -143,7 +143,7 @@ const SalesPage = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen w-screen">
       <div className="w-full py-10">
         <form className="bg-white p-4 w-full max-w-full">
           <div className="mb-4">

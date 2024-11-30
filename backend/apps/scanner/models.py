@@ -13,7 +13,7 @@ class ScanData(models.Model):
     escaneo = models.CharField(max_length=200)
     comentarios = models.CharField(max_length=100, blank=True, null=True)
     carril = models.CharField(max_length=200, blank=True, null=True)
-    colaborador = models.CharField(max_length=100, blank=True, null=True)  # Asegúrate de tener este campo
+    colaborador = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.hu

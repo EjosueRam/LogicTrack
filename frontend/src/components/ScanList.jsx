@@ -106,7 +106,7 @@ export function ScanList() {
   };
 
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="bg-white min-h-screen w-screen">
       <div className="flex mb-4">
         {/* Input para buscar por HU */}
         <div className="flex items-center">

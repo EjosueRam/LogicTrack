@@ -69,7 +69,7 @@ export function HuGeneratedList() {
     };
 
     return (
-        <div className="w-full overflow-x-auto">
+        <div className="w-full overflow-x-auto w-full">
             <div className="flex mb-4">
                 <div className="flex items-center">
                     <input

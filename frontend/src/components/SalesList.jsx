@@ -77,76 +77,79 @@ export function SalesList() {
     setCurrentPage(data.selected);
   };
 
-  return (
-      <div className="min-h-screen w-full flex flex-col">
-      <div className="flex flex-col md:flex-row mb-4">
-        {/* Input para buscar por HU */}
-        <div className="flex items-center w-full md:w-1/2 mb-4 md:mb-0">
-          <input
-            type="text"
-            placeholder="Buscar por HU"
-            value={huSearch}
-            onChange={(e) => setHuSearch(e.target.value)}
-            className="border border-gray-300 rounded-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          <button
-            onClick={handleSearchByHu}
-            className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out ml-2"
-          >
-            🔍
-          </button>
-        </div>
-      </div>
-
-      {/* Indicador de carga */}
-      {loading ? (
-        <div className="flex justify-center items-center">
-          <p>Cargando...</p>
-        </div>
-      ) : (
-        <div className="min-w-full divide-y divide-gray-200 rounded-lg shadow-lg">
-          {currentSales.length > 0 ? (
-            currentSales.map((sale) => (
-              <SalesCards key={sale.id} Sales={sale} />
-            ))
-          ) : (
-            <p>No se encontraron resultados.</p>
-          )}
-        </div>
-      )}
-
-      {/* Barra de navegación por meses y años */}
-      <div className="flex flex-wrap justify-center mt-4">
-        {monthYears.map((monthYear, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentPage(index)}
-            className={`px-4 py-2 mx-1 rounded ${index === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-          >
-            {monthYear}
-          </button>
-        ))}
-      </div>
-
-      {/* Paginación */}
-      <div className="flex justify-center mt-4">
-        <ReactPaginate
-          previousLabel={'← Anterior'}
-          nextLabel={'Siguiente →'}
-          breakLabel={'...'}
-          breakClassName={'break-me'}
-          pageCount={Math.ceil(filteredSales.length / itemsPerPage)}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={'pagination flex justify-center space-x-2 mt-4'}
-          activeClassName={'bg-blue-500 text-white'}
-          pageClassName={'px-3 py-1 border rounded'}
-          previousClassName={'px-3 py-1 border rounded'}
-          nextClassName={'px-3 py-1 border rounded'}
-          breakClassName={'px-3 py-1 border rounded'}
-          disabledClassName={'opacity-50 cursor-not-allowed'}
+   return (
+    <div className="bg-white min-h-screen w-11/12">
+      {/* Buscador separado */}
+      <div className="flex justify-center items-center mt-4 w-full max-w-lg">
+        <input
+          type="text"
+          placeholder="Buscar por HU"
+          value={huSearch}
+          onChange={(e) => setHuSearch(e.target.value)}
+          className="border border-gray-300 rounded-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
+        <button
+          onClick={handleSearchByHu}
+          className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out ml-2"
+        >
+          🔍
+        </button>
+      </div>
+
+      {/* Contenedor de las tarjetas */}
+      <div className="flex flex-col flex-grow">
+        {/* Indicador de carga */}
+        {loading ? (
+          <div className="flex justify-center items-center flex-grow">
+            <p>Cargando...</p>
+          </div>
+        ) : (
+          <div className="divide-y divide-gray-200 rounded-lg shadow-lg flex-grow">
+            {currentSales.length > 0 ? (
+              currentSales.map((sale) => (
+                <SalesCards key={sale.id} Sales={sale} />
+              ))
+            ) : (
+              <p>No se encontraron resultados.</p>
+            )}
+          </div>
+        )}
+
+        {/* Barra de navegación por meses y años */}
+        <div className="flex flex-wrap justify-center mt-4">
+          {monthYears.map((monthYear, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentPage(index)}
+              className={`px-4 py-2 mx-1 rounded ${
+                index === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+              }`}
+            >
+              {monthYear}
+            </button>
+          ))}
+        </div>
+
+        {/* Paginación */}
+        <div className="flex justify-center mt-4">
+          <ReactPaginate
+            previousLabel={'← Anterior'}
+            nextLabel={'Siguiente →'}
+            breakLabel={'...'}
+            breakClassName={'break-me'}
+            pageCount={Math.ceil(filteredSales.length / itemsPerPage)}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={'pagination flex justify-center space-x-2 mt-4'}
+            activeClassName={'bg-blue-500 text-white'}
+            pageClassName={'px-3 py-1 border rounded'}
+            previousClassName={'px-3 py-1 border rounded'}
+            nextClassName={'px-3 py-1 border rounded'}
+            breakClassName={'px-3 py-1 border rounded'}
+            disabledClassName={'opacity-50 cursor-not-allowed'}
+          />
+        </div>
       </div>
 
       {showScrollButton && (

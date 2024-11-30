@@ -45,9 +45,9 @@ function App() {
   return (
     <div className="flex h-screen">
       {location.pathname !== '/login' && !containsId(location.pathname) && <Navigation />}
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-12 w-full overflow-hidden">
         {isAuthenticated && location.pathname !== '/login' && <Navbar />}
-        <div className={`flex-1 overflow-auto ${isAuthenticated && location.pathname !== '/login' ? 'pt-12' : ''}`}>
+        <div className={`flex-1 overflow-auto ${isAuthenticated && location.pathname !== '/login' ? 'pt-14' : ''}`}>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
             <Route path='/' element={<Navigate to='/login' />} />
