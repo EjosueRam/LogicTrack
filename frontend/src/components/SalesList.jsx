@@ -78,7 +78,7 @@ export function SalesList() {
   };
 
    return (
-    <div className="bg-white min-h-screen w-11/12">
+    <div className="bg-white max-h-screen w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Buscador separado */}
       <div className="flex justify-center items-center mt-4 w-full max-w-lg">
         <input

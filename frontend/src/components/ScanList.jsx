@@ -106,8 +106,8 @@ export function ScanList() {
   };
 
   return (
-    <div className="bg-white min-h-screen w-screen">
-      <div className="flex mb-4">
+    <div className="bg-white min-h-screen w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex mb-4 w-full mx-auto">
         {/* Input para buscar por HU */}
         <div className="flex items-center">
           <input
@@ -160,7 +160,7 @@ export function ScanList() {
         </div>
       </div>
 
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-4 w-full">
         <button
           onClick={handleShowChart}
           className="bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out"
@@ -169,7 +169,7 @@ export function ScanList() {
         </button>
       </div>
 
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-4 w-full">
         <button
           onClick={handleShowDefectosEmpaque}
           className="bg-red-500 hover:bg-red-600 active:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-200 ease-in-out"
@@ -185,7 +185,7 @@ export function ScanList() {
       {showChart && <ScanChart filteredData={filteredScan} />}
 
       {/* Mostrar los resultados filtrados */}
-      <div className="min-w-full divide-y divide-gray-200 rounded-lg shadow-lg">
+      <div className="min-w-full divide-y divide-gray-200 rounded-lg shadow-lg w-full">
         {currentScans.length > 0 ? (
           currentScans.map((scanItem) => (
             <ScanCard key={scanItem.id} scanItem={scanItem} />

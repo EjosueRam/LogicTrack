@@ -54,7 +54,7 @@ const FileUploadPage = ({ scannedHuInternals = [] }) => {
     }, []); // Solo se ejecuta una vez al montar el componente
 
     return (
-        <div className="bg white min-h-screen">
+        <div className="bg white min-h-screen w-full">
             <h1 className="text-2xl font-bold mb-4 w-full">Subir Archivo Excel</h1>
             <form onSubmit={handleSubmit} className="mb-4">
                 <input type="file" onChange={handleFileChange} />
@@ -62,13 +62,13 @@ const FileUploadPage = ({ scannedHuInternals = [] }) => {
                     Subir Archivo
                 </button>
             </form>
-            <DataTable
+            < DataTable
               data={huInternalsState}
                 columns={[
                     { title: 'HU', data: 'id' },
                     { title: 'Estado', data: 'data', render: (data) => data === 'Ingreso a 2a revisión' ? 'Ingreso a 2a revisión' : 'Pendiente' }
                 ]}
-                className="display "
+                className="display"
             />
         </div>
     );
