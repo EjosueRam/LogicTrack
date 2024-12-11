@@ -170,7 +170,7 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
 
             const updatedHuInternals = validRows.map(row => ({
                 hu_internal: row.hu,
-                estado: 'Ingreso a 2a revisión'
+                status: 'Ingreso a 2a revisión'
             }));
             const response = await updateHuInternalsStatus(updatedHuInternals);
             if (response.data.not_found.length > 0) {

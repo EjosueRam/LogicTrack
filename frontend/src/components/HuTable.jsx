@@ -5,6 +5,8 @@ const HuSearchTable = ({ onHuChange }) => {
   const [hu2, setHu2] = useState('');
   const [hu3, setHu3] = useState('');
   const [hu4, setHu4] = useState('');
+  const [hu5, setHu5] = useState('');
+  const [hu6, setHu6] = useState('');
 
   useEffect(() => {
     // Cargar HU desde localStorage al montar el componente
@@ -12,10 +14,14 @@ const HuSearchTable = ({ onHuChange }) => {
     const savedHu2 = localStorage.getItem('hu2');
     const savedHu3 = localStorage.getItem('hu3');
     const savedHu4 = localStorage.getItem('hu4');
+    const savedHu5 = localStorage.getItem('hu5');
+    const savedHu6 = localStorage.getItem('hu6');
     if (savedHu1) setHu1(savedHu1);
     if (savedHu2) setHu2(savedHu2);
     if (savedHu3) setHu3(savedHu3);
     if (savedHu4) setHu4(savedHu4);
+    if (savedHu5) setHu5(savedHu5);
+    if (savedHu6) setHu6(savedHu6);
   }, []);
 
   useEffect(() => {
@@ -24,8 +30,10 @@ const HuSearchTable = ({ onHuChange }) => {
     localStorage.setItem('hu2', hu2);
     localStorage.setItem('hu3', hu3);
     localStorage.setItem('hu4', hu4);
-    onHuChange([hu1, hu2, hu3, hu4]);
-  }, [hu1, hu2, hu3, hu4, onHuChange]);
+    localStorage.setItem('hu5', hu5);
+    localStorage.setItem('hu6', hu6);
+    onHuChange([hu1, hu2, hu3, hu4, hu5, hu6]);
+  }, [hu1, hu2, hu3, hu4, hu5, hu6, onHuChange]);
 
   return (
     <div className="bg-white p-4">
@@ -57,6 +65,20 @@ const HuSearchTable = ({ onHuChange }) => {
           value={hu4}
           onChange={(e) => setHu4(e.target.value)}
           placeholder="HU 4"
+          className="border p-2 w-full"
+        />
+        <input
+          type="text"
+          value={hu5}
+          onChange={(e) => setHu5(e.target.value)}
+          placeholder="HU 5"
+          className="border p-2 w-full"
+        />
+        <input
+          type="text"
+          value={hu6}
+          onChange={(e) => setHu6(e.target.value)}
+          placeholder="HU 6"
           className="border p-2 w-full"
         />
       </div>

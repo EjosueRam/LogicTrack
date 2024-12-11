@@ -141,7 +141,7 @@ const HuGeneratedForm = () => {
     };
 
     return (
-        <div className="bg-white min-h-screen w-screen">
+        <div className="bg-white min-h-screen w-full">
             <div className="container mx-auto py-10">
                 <h1 className="text-2xl font-bold mb-6">{id ? "Actualizar Hu Generada" : "Registrar Hu Generada"}</h1>
                 <form className="bg-white p-4 w-full max-w-full" onSubmit={handleSubmit}>

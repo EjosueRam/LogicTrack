@@ -19,7 +19,7 @@ export const extractAndCompareFile = (file) => {
 
 // Función para guardar los datos extraídos
 export const saveHuInternals = (huInternals) => {
-  const formattedData = huInternals.map(hu => ({ hu_internal: hu }));
+  const formattedData = huInternals.map(hu => ({ hu_internal: hu, status: 'Pendiente' }));
   return fileUploadApi.post('/', { huInternals: formattedData });
 };
 
