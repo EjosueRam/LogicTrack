@@ -7,7 +7,7 @@ class ScanData(models.Model):
     hu = models.CharField(max_length=50)
     date_hu = models.CharField(max_length=10, blank=True, null=True)
     material = models.CharField(max_length=20, blank=True, null=True)
-    motivo = models.CharField(max_length=100, blank=True, null=True)
+    motivo = models.CharField(max_length=100, blank=True, null= True)
     submotivo = models.CharField(max_length=100, blank=True, null=True)
     procedencia = models.CharField(max_length=100, blank=True, null=True)
     escaneo = models.CharField(max_length=200)

@@ -28,7 +28,7 @@ def hu_internal_list(request):
         for hu_internal in hu_internals_data:
             try:
                 hu = HUInternal.objects.get(hu_internal=hu_internal['hu_internal'])
-                hu.status = hu_internal['estado']
+                hu.status = hu_internal['status']
                 hu.save()
                 print(f"Updated HUInternal: {hu.hu_internal} to {hu.status}")  # Log para verificar la actualización
             except HUInternal.DoesNotExist:
