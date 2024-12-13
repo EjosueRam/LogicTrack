@@ -85,7 +85,7 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
                 updatedRows[index].procedencia = 'Almacen Temporal';
                 setValue(`rows.${index}.motivo`, 'Apartado');
                 setValue(`rows.${index}.procedencia`, 'Almacen General');
-                toast.success('Apartado ingresado a 2a revisión', {
+                toast.success('Apartado Ingreso a 2da revisión', {
                     position: "bottom-right",
                     style: {
                         background: "#101010",
@@ -170,7 +170,7 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
 
             const updatedHuInternals = validRows.map(row => ({
                 hu_internal: row.hu,
-                status: 'Ingreso a 2a revisión'
+                status: 'Ingreso a 2da revisión'
             }));
             const response = await updateHuInternalsStatus(updatedHuInternals);
             if (response.data.not_found.length > 0) {

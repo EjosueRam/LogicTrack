@@ -62,11 +62,18 @@ const FileUploadPage = ({ scannedHuInternals = [] }) => {
                     Subir Archivo
                 </button>
             </form>
-            < DataTable
-              data={huInternalsState}
+            <DataTable
+                data={huInternalsState}
                 columns={[
                     { title: 'HU', data: 'hu_internal' },
-                    { title: 'Estado', data: 'data', render: (data) => data === 'Ingreso a 2a revisión' ? 'Ingreso a 2a revisión' : 'Pendiente' }
+                    {
+                        title: 'Estado',
+                        data: 'status',
+                        render: (data) => {
+                            const className = data === 'Ingreso a 2da revisión' ? 'text-green-600' : 'text-red-500';
+                            return `<span class="${className}">${data}</span>`;
+                        }
+                    }
                 ]}
                 className="display"
             />

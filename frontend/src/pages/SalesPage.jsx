@@ -3,11 +3,10 @@ import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { makeSales } from "../api/Sales.api.js";
 import { getHuInternals } from "../api/FileUpload.api.js";
-import { AuthContext } from "../context/AuthContext";
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import 'datatables.net-dt/css/dataTables.dataTables.css';
-
+import getUserFullName from "@/components/UserInfo.jsx";
 
 
 DataTable.use(DT);
@@ -18,10 +17,10 @@ const SalesPage = () => {
   const [huInternals, setHuInternals] = useState([]); // Guardar HUInternals desde el backend
   const [matchingHuInternals, setMatchingHuInternals] = useState([]); // Guardar coincidencias
   const [showTable, setShowTable] = useState(false); // Mostrar tabla de coincidencias
-  const { userName } = useContext(AuthContext); // Usar el contexto de autenticación
-  const [selectedCoworker] = useState(userName); // Guardar el colaborador seleccionado
+  const userFullName = getUserFullName();
   const navigate = useNavigate();
-  const params = useParams();
+  const [isSaving, setIsSaving] = useState(false);
+
 
   useEffect(() => {
     // Cargar HUInternals desde el backend cuando el componente se monta
@@ -50,20 +49,27 @@ const SalesPage = () => {
 
     // Si el escaneo tiene la longitud correcta (66, 68, 69 o 20 caracteres)
     if ([66, 68, 69].includes(lastScan.length)) {
-      setAllScans(prevScans => [...prevScans, lastScan]); // Agrega el nuevo escaneo a la lista
-      setScanText(newScan); // Limpia el campo de texto
-    } else {
-      setScanText(newScan); // Actualiza el texto del textarea
+      setAllScans(prevScans => {
+          if (!prevScans.includes(lastScan)) {
+      return [...prevScans, lastScan];
     }
+    return prevScans;
+  });
+  setScanText(""); // Limpia el campo de texto
+} else {
+  setScanText(newScan); // Actualiza el texto del textarea
+}
   };
 
   // Función que maneja el guardado y descarga del archivo de texto
   const handleSave = async () => {
+    if (isSaving) return;
+    setIsSaving(true);
     const validScans = allScans.map(scan => ({
       Sales: scan,
       HandlingUnit: scan.slice(0, 20),  // Asume que el HandlingUnit son los primeros 20 caracteres
       Material: scan.slice(29, 39),     // Asume que el material está en esta posición
-      Coworker: selectedCoworker        // Agrega el colaborador seleccionado
+      Coworker: userFullName
     }));
 
     if (validScans.length === 0) {
@@ -74,19 +80,31 @@ const SalesPage = () => {
           color: "#fff",
         },
       });
+      setIsSaving(false);
       return;
     }
 
     // Buscar coincidencias entre HandlingUnit y HUInternals
     const matchingHUs = validScans.filter(scan =>
-      huInternals.some(hu => hu.hu_internal === scan.HandlingUnit)
+        huInternals.some(hu => hu.hu_internal === scan.HandlingUnit)
     );
 
     if (matchingHUs.length > 0) {
       setMatchingHuInternals(matchingHUs);
       setShowTable(true);
-    } else {
+      setIsSaving(false);
+      return;
+    }
+    try {
       await saveScans(validScans);
+    } catch (error) {
+      console.error("Error en handleSave:", error);
+      toast.error("Error al guardar escaneos.", {
+        position: "bottom-right",
+        style: {background: "#101010", color: "#fff"},
+      });
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -94,38 +112,35 @@ const SalesPage = () => {
   const saveScans = async (validScans) => {
     try {
       // Crear nuevos registros de escaneos
-      for (const scan of validScans) {
-        await makeSales(scan);
-      }
+      await Promise.all(validScans.map((scan) => makeSales(scan)));
       toast.success("Escaneos guardados", {
         position: "bottom-right",
         style: {
           background: "#101010",
-          color: "#fff",
+          color: "#fff"
         },
       });
 
-      // Crear y descargar el archivo de texto
-      const extractedScans = extractFirst20Digits(allScans.join('\n'));
-      const apartados = matchingHuInternals.map(hu => `Apartado: ${hu.HandlingUnit}`);
-      const normales = extractedScans.filter(scan => !matchingHuInternals.some(hu => hu.HandlingUnit === scan));
-      const blob = new Blob([apartados.join('\n'), '\n', normales.join('\n')], { type: "text/plain" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "scans.txt";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+  // Crear y descargar el archivo de texto
+  const extractedScans = extractFirst20Digits(allScans.join('\n'));
+  const apartados = matchingHuInternals.map(hu => `Apartado: ${hu.HandlingUnit}`);
+  const normales = extractedScans.filter(scan => !matchingHuInternals.some(hu => hu.HandlingUnit === scan));
+  const blob = new Blob([apartados.join('\n'), '\n', normales.join('\n')], {type: "text/plain"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "scans.txt";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 
-      navigate("/Sales-list"); // Redirige después de guardar
-    } catch (error) {
+  navigate("/Sales-list"); // Redirige después de guardar
+} catch (error) {
       console.error("Error al guardar los escaneos:", error); // Depuración
       toast.error("Hubo un error al guardar los escaneos", {
         position: "bottom-right",
         style: {
           background: "#101010",
-          color: "#fff",
-        },
+          color: "#fff"},
       });
     }
   };
@@ -153,7 +168,7 @@ const SalesPage = () => {
             <input
               type="text"
               id="coworkerSelect"
-              value={selectedCoworker}
+              value={userFullName}
               readOnly
               className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
             />
@@ -165,7 +180,7 @@ const SalesPage = () => {
             </label>
             <textarea
               id="scanText"
-              value={scanText} // Mostrar el texto completo del textarea
+              value={scanText}  // Mostrar el texto completo del textarea
               onChange={handleScanInput}
               placeholder="Introduce los escaneos aquí..."
               className="border p-4 w-full h-64 focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
@@ -194,7 +209,7 @@ const SalesPage = () => {
               data={matchingHuInternals}
               columns={[
                 { title: 'HUInternal', data: 'HandlingUnit' },
-                { title: 'Estado', data: 'estado', render: (data) => data === 'Ingreso a 2a revisión' ? '<span class="text-green-500">Ingreso a 2a revisión</span>' : '<span class="text-red-500">Pendiente</span>' }
+                { title: 'Estado', data: 'status', render: (data) => data === 'Ingreso a 2da revisión' ? '<span class="text-green-500">Ingreso a 2a revisión</span>' : '<span class="text-red-500">Pendiente</span>' }
               ]}
               className="display"
               paging={true}
@@ -208,7 +223,7 @@ const SalesPage = () => {
                   Sales: scan,
                   HandlingUnit: scan.slice(0, 20),
                   Material: scan.slice(29, 39),
-                  Coworker: selectedCoworker
+                  Coworker: userFullName
                 })));
               }}
               className="mt-4 bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md"
