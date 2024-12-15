@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getScan, makeScan, updateScan, deleteScan } from '../api/Scan.api.js';
 import HuTable from "../components/HuTable.jsx";
 import { updateHuInternalsStatus } from "../api/FileUpload.api.js";
+import getUserFullName from "@/components/UserInfo.jsx";
+
 
 const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
     const { formState: { errors }, register, setValue } = useForm();
@@ -20,9 +22,12 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
         procedencia: '',
         date_hu: "",
         carril: '',
-        comentarios: ''
+        comentarios: '',
+        colaborador: ''
+
     }]);
     const [searchHus, setSearchHus] = useState([]);
+    const userFullName = getUserFullName();
     const LENGTH_69 = 69;
     const LENGTH_68 = 68;
     const LENGTH_66 = 66;
@@ -30,6 +35,17 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
     const inputRefs = useRef([]);
     const navigate = useNavigate();
     const params = useParams();
+
+    useEffect(() => {
+        // Obtener el nombre del usuario cuando el componente se monta
+        const fetchUserFullName = async () => {
+            const name = await getUserFullName();
+            setUserFullName(name);
+        };
+
+        fetchUserFullName();
+    }, []);
+
 
     function extractData(dataMatrix) {
         const length = dataMatrix.length;
@@ -108,7 +124,8 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
                     procedencia: '',
                     date_hu: "",
                     carril: '',
-                    comentarios: ''
+                    comentarios: '',
+                    colaborador: ''
                 });
                 setTimeout(() => {
                     const lastInput = inputRefs.current[inputRefs.current.length - 1];
@@ -240,190 +257,203 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
             <HuTable onHuChange={setSearchHus} />
             <div className="w-full py-10">
                 <form className="bg-white p-4 w-full max-w-full overflow-auto">
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="coworkerSelect">
+                            Colaborador:
+                        </label>
+                        <input
+                            type="text"
+                            id="coworkerSelect"
+                            value={userFullName}
+                            readOnly
+                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                        />
+                    </div>
                     <table className="table-auto w-full">
                         <thead className="bg-gray-100">
-                            <tr>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Fecha y Hora
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Escaneo
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    HU
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Línea
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Material
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Motivo
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Submotivo
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Procedencia
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Fecha de Hu
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Comentarios
-                                </th>
-                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Carril
-                                </th>
-                            </tr>
+                        <tr>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Fecha y Hora
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Escaneo
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                HU
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Línea
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Material
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Motivo
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Submotivo
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Procedencia
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Fecha de Hu
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Comentarios
+                            </th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
+                                Carril
+                            </th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {rows.map((row, index) => (
-                                <tr key={row.id} className={isHighlighted(row.hu) ? 'bg-yellow-200' : ''}>
-                                    <td className="px-4 py-2">
-                                        <input
-                                            type="text"
-                                            value={formartTime(row.date_hour)}
-                                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
-                                            readOnly
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <input
-                                            type="text"
-                                            ref={(el) => (inputRefs.current[index] = el)}
-                                            value={row.escaneo}
-                                            placeholder="Escaneo"
-                                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
-                                            onChange={(e) => handleEscaneoChange(index, e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <input
-                                            type="text"
-                                            value={row.hu}
-                                            placeholder="HU"
-                                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
-                                            onChange={(e) => handleFieldChange(index, 'hu', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <input
-                                            type="text"
-                                            value={row.linea}
-                                            placeholder="Línea"
-                                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
-                                            onChange={(e) => handleFieldChange(index, 'linea', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <input
-                                            type="text"
-                                            value={row.material}
-                                            placeholder="Material"
-                                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
-                                            onChange={(e) => handleFieldChange(index, 'material', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <select
-                                            {...register(`rows.${index}.motivo`, { required: 'Motivo es requerido' })}
-                                            className={`border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white ${errors.rows?.[index]?.motivo ? 'border-red-500' : ''}`}
-                                            onChange={(e) => handleFieldChange(index, 'motivo', e.target.value)}
-                                            required
-                                        >
-                                            <option value="">Seleccione</option>
-                                            <option value="Apartado">Apartado</option>
-                                            <option value="Backtracking">Backtracking</option>
-                                            <option value="Bloqueo Pt">Bloqueo Pt</option>
-                                            <option value="Sin Hu">Material frente a BT</option>
-                                            <option value="Conforme">Conforme</option>
-                                            <option value="Defecto de Empaque">Defecto de Empaque</option>
-                                            <option value="Desvio de Lgv">Desvio de Lgv</option>
-                                            <option value="Desvio manual">Desvio manual</option>
-                                            <option value="Envase liso">Envase liso</option>
-                                            <option value="Excepcion de sistema">Excepcion de sistema</option>
-                                            <option value="Falla de comunicacion">Falla de comunicacion</option>
-                                            <option value="Hu duplicada">Hu duplicada</option>
-                                            <option value="Impar">Impar</option>
-                                            <option value="Rechazo">Rechazo</option>
-                                            <option value="Retrabajo Pal10">Retrabajo Pal10</option>
-                                            <option value="Retrabajo Pal54">Retrabajo Pal54</option>
-                                            <option value="Saldo">Saldo</option>
-                                            <option value="Saldo Etiquetado">Saldo Etiquetado</option>
-                                            <option value="Sin Hu">Sin Hu</option>
-                                            <option value="Venta">Venta</option>
-                                        </select>
-                                        {errors.rows?.[index]?.motivo &&
-                                            <span className="text-red-500">{errors.rows[index].motivo.message}</span>}
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <input
-                                            type="text"
-                                            value={row.submotivo}
-                                            placeholder="Submotivo"
-                                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
-                                            onChange={(e) => handleFieldChange(index, 'submotivo', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <select
-                                            value={row.procedencia}
-                                            className={`border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white ${errors.rows?.[index]?.procedencia ? 'border-red-500' : ''}`}
-                                            onChange={(e) => handleFieldChange(index, 'procedencia', e.target.value)}
-                                            required
-                                        >
-                                            <option value="">Seleccione</option>
-                                            <option value="Envolvedora">Envolvedora</option>
-                                            <option value="Almacen Temporal">Almacen Temporal</option>
-                                            <option value="ASRS">ASRS</option>
-                                            <option value="Contingencia">Contingencia</option>
-                                            <option value="Bahia 2da Rev">Bahia 2da Rev</option>
-                                            <option value="Area de BT">Backtracking</option>
-                                        </select>
-                                        {errors.rows?.[index]?.procedencia && <span className="text-red-500">{errors.rows[index].procedencia.message}</span>}
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <input
-                                            type="text"
-                                            value={row.date_hu}
-                                            placeholder="Fecha de Hu"
-                                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
-                                            onChange={(e) => handleFieldChange(index, 'dateHu', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <input
-                                            type="text"
-                                            value={row.comentarios}
-                                            placeholder="Comentarios"
-                                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
-                                            onChange={(e) => handleFieldChange(index, 'comentarios', e.target.value)}
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        <select
-                                            value={row.carril}
-                                            className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
-                                            onChange={(e) => handleFieldChange(index, 'carril', e.target.value)}
-                                        >
-                                            <option value=""></option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="A1">A1</option>
-                                            <option value="A2">A2</option>
-                                            <option value="A3">A3</option>
-                                            <option value="A4">A4</option>
-                                            <option value="A5">A5</option>
-                                            <option value="A6">A6</option>
-                                            <option value="A7">A7</option>
-                                            <option value="A7">A8</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            ))}
+                        {rows.map((row, index) => (
+                            <tr key={row.id} className={isHighlighted(row.hu) ? 'bg-yellow-200' : ''}>
+                                <td className="px-4 py-2">
+                                    <input
+                                        type="text"
+                                        value={formartTime(row.date_hour)}
+                                        className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                                        readOnly
+                                    />
+                                </td>
+                                <td className="px-4 py-2">
+                                    <input
+                                        type="text"
+                                        ref={(el) => (inputRefs.current[index] = el)}
+                                        value={row.escaneo}
+                                        placeholder="Escaneo"
+                                        className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                                        onChange={(e) => handleEscaneoChange(index, e.target.value)}
+                                    />
+                                </td>
+                                <td className="px-4 py-2">
+                                    <input
+                                        type="text"
+                                        value={row.hu}
+                                        placeholder="HU"
+                                        className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                                        onChange={(e) => handleFieldChange(index, 'hu', e.target.value)}
+                                    />
+                                </td>
+                                <td className="px-4 py-2">
+                                    <input
+                                        type="text"
+                                        value={row.linea}
+                                        placeholder="Línea"
+                                        className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                                        onChange={(e) => handleFieldChange(index, 'linea', e.target.value)}
+                                    />
+                                </td>
+                                <td className="px-4 py-2">
+                                    <input
+                                        type="text"
+                                        value={row.material}
+                                        placeholder="Material"
+                                        className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                                        onChange={(e) => handleFieldChange(index, 'material', e.target.value)}
+                                    />
+                                </td>
+                                <td className="px-4 py-2">
+                                    <select
+                                        {...register(`rows.${index}.motivo`, {required: 'Motivo es requerido'})}
+                                        className={`border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white ${errors.rows?.[index]?.motivo ? 'border-red-500' : ''}`}
+                                        onChange={(e) => handleFieldChange(index, 'motivo', e.target.value)}
+                                        required
+                                    >
+                                        <option value="">Seleccione</option>
+                                        <option value="Apartado">Apartado</option>
+                                        <option value="Backtracking">Backtracking</option>
+                                        <option value="Bloqueo Pt">Bloqueo Pt</option>
+                                        <option value="Sin Hu">Material frente a BT</option>
+                                        <option value="Conforme">Conforme</option>
+                                        <option value="Defecto de Empaque">Defecto de Empaque</option>
+                                        <option value="Desvio de Lgv">Desvio de Lgv</option>
+                                        <option value="Desvio manual">Desvio manual</option>
+                                        <option value="Envase liso">Envase liso</option>
+                                        <option value="Excepcion de sistema">Excepcion de sistema</option>
+                                        <option value="Falla de comunicacion">Falla de comunicacion</option>
+                                        <option value="Hu duplicada">Hu duplicada</option>
+                                        <option value="Impar">Impar</option>
+                                        <option value="Rechazo">Rechazo</option>
+                                        <option value="Retrabajo Pal10">Retrabajo Pal10</option>
+                                        <option value="Retrabajo Pal54">Retrabajo Pal54</option>
+                                        <option value="Saldo">Saldo</option>
+                                        <option value="Saldo Etiquetado">Saldo Etiquetado</option>
+                                        <option value="Sin Hu">Sin Hu</option>
+                                        <option value="Venta">Venta</option>
+                                    </select>
+                                    {errors.rows?.[index]?.motivo &&
+                                        <span className="text-red-500">{errors.rows[index].motivo.message}</span>}
+                                </td>
+                                <td className="px-4 py-2">
+                                    <input
+                                        type="text"
+                                        value={row.submotivo}
+                                        placeholder="Submotivo"
+                                        className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                                        onChange={(e) => handleFieldChange(index, 'submotivo', e.target.value)}
+                                    />
+                                </td>
+                                <td className="px-4 py-2">
+                                    <select
+                                        value={row.procedencia}
+                                        className={`border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white ${errors.rows?.[index]?.procedencia ? 'border-red-500' : ''}`}
+                                        onChange={(e) => handleFieldChange(index, 'procedencia', e.target.value)}
+                                        required
+                                    >
+                                        <option value="">Seleccione</option>
+                                        <option value="Envolvedora">Envolvedora</option>
+                                        <option value="Almacen Temporal">Almacen Temporal</option>
+                                        <option value="ASRS">ASRS</option>
+                                        <option value="Contingencia">Contingencia</option>
+                                        <option value="Bahia 2da Rev">Bahia 2da Rev</option>
+                                        <option value="Area de BT">Backtracking</option>
+                                    </select>
+                                    {errors.rows?.[index]?.procedencia &&
+                                        <span className="text-red-500">{errors.rows[index].procedencia.message}</span>}
+                                </td>
+                                <td className="px-4 py-2">
+                                    <input
+                                        type="text"
+                                        value={row.date_hu}
+                                        placeholder="Fecha de Hu"
+                                        className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                                        onChange={(e) => handleFieldChange(index, 'dateHu', e.target.value)}
+                                    />
+                                </td>
+                                <td className="px-4 py-2">
+                                    <input
+                                        type="text"
+                                        value={row.comentarios}
+                                        placeholder="Comentarios"
+                                        className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                                        onChange={(e) => handleFieldChange(index, 'comentarios', e.target.value)}
+                                    />
+                                </td>
+                                <td className="px-4 py-2">
+                                    <select
+                                        value={row.carril}
+                                        className="border p-2 w-full focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
+                                        onChange={(e) => handleFieldChange(index, 'carril', e.target.value)}
+                                    >
+                                        <option value=""></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="A1">A1</option>
+                                        <option value="A2">A2</option>
+                                        <option value="A3">A3</option>
+                                        <option value="A4">A4</option>
+                                        <option value="A5">A5</option>
+                                        <option value="A6">A6</option>
+                                        <option value="A7">A7</option>
+                                        <option value="A7">A8</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                     <button
@@ -440,7 +470,8 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
                                 if (accepted) {
                                     await deleteScan(params.id);
                                     toast.success('Escaneo eliminado', {
-                                        position: 'bottom-right' });
+                                        position: 'bottom-right'
+                                    });
                                     navigate('/Search-Hu');
                                 }
                             }}

@@ -43,6 +43,10 @@ export function ScanCard({ scanItem }) {
           <p className="text-gray-500 font-semibold">Submotivo:</p>
           <p className="text-gray-800">{scanItem.submotivo}</p>
         </div>
+        <div className="flex-1 px-2 py-1">
+          <p className="text-gray-500 font-semibold">Colaborador:</p>
+          <p className="text-gray-800">{scanItem.colaborador}</p>
+        </div>
       </div>
     </div>
   );
