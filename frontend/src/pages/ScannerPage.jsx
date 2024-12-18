@@ -36,15 +36,6 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
     const navigate = useNavigate();
     const params = useParams();
 
-    useEffect(() => {
-        // Obtener el nombre del usuario cuando el componente se monta
-        const fetchUserFullName = async () => {
-            const name = await getUserFullName();
-            setUserFullName(name);
-        };
-
-        fetchUserFullName();
-    }, []);
 
 
     function extractData(dataMatrix) {

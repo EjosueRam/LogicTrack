@@ -2,12 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { makeHuGenerated, getHuGenerated, updateHuGenerated, deleteHuGenerated } from "../api/Hu_generated.api.js";
 import { toast } from "react-hot-toast";
-import { AuthContext } from "../context/AuthContext";
+import getUserFullName from "@/components/UserInfo.jsx";
+
 
 const HuGeneratedForm = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { userName } = useContext(AuthContext);
+    const userName = getUserFullName();
 
     const [formData, setFormData] = useState({
         huGenerated: '',
