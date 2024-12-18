@@ -23,7 +23,7 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
         date_hu: "",
         carril: '',
         comentarios: '',
-        colaborador: ''
+        colaborador: '',
 
     }]);
     const [searchHus, setSearchHus] = useState([]);
@@ -152,8 +152,12 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
         }
 
         try {
+            const rowsWithUser = validRows.map(row => ({
+                ...row,
+                colaborador: userFullName
+            }));
             if (params.id) {
-                for (const row of validRows) {
+                for (const row of rowsWithUser) {
                     await updateScan(params.id, row);
                 }
                 toast.success('Escaneo actualizado', {
@@ -164,7 +168,7 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
                     }
                 });
             } else {
-                for (const row of validRows) {
+                for (const row of rowsWithUser) {
                     await makeScan(row);
                 }
                 toast.success('Escaneo agregado', {
@@ -176,7 +180,7 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
                 });
             }
 
-            const updatedHuInternals = validRows.map(row => ({
+            const updatedHuInternals = rowsWithUser.map(row => ({
                 hu_internal: row.hu,
                 status: 'Ingreso a 2da revisión'
             }));
@@ -215,7 +219,8 @@ const ScannerPage = ({ huInternalsState, setHuInternalsState }) => {
                     escaneo: data.escaneo,
                     date_hu: data.date_hu,
                     carril: data.carril,
-                    comentarios: data.comentarios
+                    comentarios: data.comentarios,
+                    colaborador: data.colaborador,
                 }]);
             }
         }
