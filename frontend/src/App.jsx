@@ -24,7 +24,6 @@ function App() {
   const [huInternalsState, setHuInternalsState] = useState([]);
 
   useEffect(() => {
-    // Cargar datos desde el backend cuando el componente se monta
     const fetchHuInternals = async () => {
       try {
         const response = await getHuInternals();
@@ -41,7 +40,7 @@ function App() {
     const idPattern = /\/\d+$/; // Patrón para detectar un ID al final de la ruta
     return idPattern.test(pathname);
   };
-// show of the entires of routes of the main app
+
   return (
     <div className="flex h-screen">
       {location.pathname !== '/login' && !containsId(location.pathname) && <Navigation />}

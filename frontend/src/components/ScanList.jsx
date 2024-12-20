@@ -17,11 +17,35 @@ export function ScanList() {
   const [currentPage, setCurrentPage] = useState(0); // Estado para la página actual
   const [itemsPerPage] = useState(10); // Número de elementos por página
 
+  /**
+   * Exports filtered data to an Excel file by creating a worksheet and adding it to a workbook.
+   * The resulting file is saved to the specified name.
+   *
+   * @param {Array<Object>} filteredData - Array of objects representing the filtered data. Each object corresponds to a row, and its keys correspond to column names.
+   * @return {void} This method does not return a value as it directly writes the Excel file to the filesystem.
+   */
   const handleExportExcel = (filteredData) => {
     // Crear una hoja de cálculo a partir de los datos filtrados
+    /**
+     * Represents a worksheet generated from a JSON array.
+     *
+     * The `worksheet` variable stores tabular data converted into a worksheet format,
+     * utilizing the `json_to_sheet` function provided by the XLSX library. This worksheet
+     * can be further utilized for generating Excel files or other spreadsheet formats.
+     *
+     * The `filteredData` parameter passed to `json_to_sheet` is typically an array of
+     * objects where each object represents a row in the sheet, and its properties
+     * represent the columns.
+     *
+     * @type {Object}
+     */
     const worksheet = XLSX.utils.json_to_sheet(filteredData);
 
     // Crear un libro de trabajo
+    /**
+     * Represents a new workbook instance created using the XLSX library.
+     * Provides an object to define sheets, manipulate data, and export files in spreadsheet formats.
+     */
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos Filtrados');
 
@@ -37,6 +61,11 @@ export function ScanList() {
       setFilteredScan(sortedData);
 
       // Establecer la página actual al mes más reciente
+      /**
+       * A string representing the most recent month and year in a human-readable format.
+       * It is derived from the first entry of a sorted dataset containing date and time information.
+       * The value is formatted to display the month name in full and the year in numeric form.
+       */
       const mostRecentMonthYear = new Date(sortedData[0].date_hour).toLocaleString('default', { month: 'long', year: 'numeric' });
       const monthYears = Object.keys(scansByMonthYear(sortedData));
       setCurrentPage(monthYears.indexOf(mostRecentMonthYear));

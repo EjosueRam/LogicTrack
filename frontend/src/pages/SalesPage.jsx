@@ -180,7 +180,7 @@ const SalesPage = () => {
             </label>
             <textarea
               id="scanText"
-              value={scanText}  // Mostrar el texto completo del textarea
+              value={scanText}
               onChange={handleScanInput}
               placeholder="Introduce los escaneos aquí..."
               className="border p-4 w-full h-64 focus:outline-none focus:ring focus:border-blue-300 rounded-md shadow-md bg-white"
