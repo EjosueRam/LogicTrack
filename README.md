@@ -1,63 +1,62 @@
 LogicTrack
-Esta aplicación web está enfocada en la lógica del seguimiento y manejo de las unidades de manipulación (Handling Units), permitiendo la creación de gráficos y herramientas de administración de datos mediante una interfaz sencilla de usar.
-- Seguimiento de Handling Units
-- Creación y visualización de gráficos
-- Administración de datos
-- Interfaz de usuario intuitiva
-- Implementacion de una base de datos
-  ## Instalación
-Sigue estos pasos para instalar y configurar el proyecto:
+This web application focuses on the logic of tracking and managing Handling Units (HU), allowing the creation of charts and data management tools through an easy-to-use interface.
+- Handling Unit Tracking
+- Creation and visualization of charts
+- Data management
+- Intuitive user interface
+- Database implementation
 
-### Backend
-1. Clona el repositorio:
+# Installation
+Follow these steps to install and configure the project:
+# Backend
+1. Clone the repository:
     ```bash
     git clone https://github.com/EjosueRam/LogicTrack.git
     ```
 
-2. Crea y activa un entorno virtual:
+2. Create and activate a virtual environment:
     ```bash
     python -m venv env
     source env/bin/activate  # En Windows usa `env\Scripts\activate`
     ```
 
-3. Instala las dependencias:
+3. Install the dependencies:
     ```bash
     pip install -r requirements.txt
     ```
 
-4. Realiza las migraciones y ejecuta el servidor:
+4.  Apply the migrations and run the server:
     ```bash
     python manage.py migrate
     python manage.py runserver
     ```
 
-### Frontend
-1. Navega al directorio del frontend:
+# Frontend
+1. Navigate to the frontend directory:
     ```bash
     cd ../frontend
     ```
 
-2. Instala las dependencias:
+2.  Install the dependencies:
     ```bash
     npm install
     ```
 
-3. Inicia la aplicación:
+3. Start the application:
     ```bash
     npm start
     ```
 
-## Uso
-Una vez que el servidor backend y la aplicación frontend estén en funcionamiento, puedes acceder a la aplicación en tu navegador en `http://localhost:5173`.
+# Usage
+Once the backend server and the frontend application are running, you can access the application in your browser at [http://localhost:5173]().
+# Contributing
+If you want to contribute to the project, follow these steps:
+1. Fork the project.
+2. Create a new branch: (`git checkout -b feature/nueva-caracteristica`)
+3. Make your changes and commit them:(`git commit -m 'Add new feature'`)
+4. Push your changes(`git push origin feature/new-feature`)
+1. Open a Pull Request.
 
-## Contribución
-Si deseas contribuir al proyecto, sigue estos pasos:
-
-1. Haz un fork del proyecto
-2. Crea una nueva rama (`git checkout -b feature/nueva-caracteristica`)
-3. Realiza tus cambios y haz commit (`git commit -m 'Añadir nueva característica'`)
-4. Sube tus cambios (`git push origin feature/nueva-caracteristica`)
-5. Abre un Pull Request
-
-## Licencia
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+# License
+This project is licensed under the MIT License. Check the `LICENSE` file for more details.
+Let me know if you need further refinement!
