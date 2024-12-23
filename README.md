@@ -170,6 +170,10 @@ If you want to contribute to the project, follow these steps:
 4. Push your changes(`git push origin feature/new-feature`)
 1. Open a Pull Request.
 # Layout
+Login
+![Captura de pantalla (10)](https://github.com/user-attachments/assets/b95f30e9-c889-44e1-943e-ac5f7b4c735f)
+Sidebar
+![Captura de pantalla (11)](https://github.com/user-attachments/assets/8bebe214-3711-4173-8f57-63e84cdb1745)
 Home
 ![Captura de pantalla (1)](https://github.com/user-attachments/assets/3ece2467-28ce-4d14-8080-7ad695256b57)
 Sales Option
