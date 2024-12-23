@@ -4,6 +4,121 @@ LogicTrack is a web application designed to manage and track Handling Units (HUs
 - Data management tools
 - Intuitive user interface
 - Database implementation
+  ## Table of Contents
+1. Description
+2. Project Objective
+3. Problem Solved
+4. Project Architecture
+   - Main Components
+   - Data Flow
+5. Scalability
+6. Deliverables
+7. Installation Guide
+   - Backend
+   - Frontend
+8. Usage
+9. Contributing
+10. Layout
+11. License
+12. Contact
+
+## Description
+LogicTrack is a web application designed to manage and track Handling Units (HUs). The application allows for the creation and visualization of charts, as well as data management through an intuitive interface.
+
+## Project Objective
+Provide a platform to manage sales and generated Handling Units (HUs).
+
+## Problem Solved
+Facilitates the management and tracking of sales and generated HUs, improving operational efficiency.
+
+### Main Components
+
+#### Frontend (React with Vite)
+- **Components:**
+  - EditableTable.jsx
+  - Footer.jsx
+  - HuGeneratedCard.jsx
+  - HuGeneratedList.jsx
+  - HuTable.jsx
+  - LoginForm.jsx
+  - Navbar.jsx
+  - Navigation.jsx
+  - ProtectedRoute.jsx
+  - SalesCards.jsx
+  - SalesList.jsx
+  - ScanCard.jsx
+  - ScanChart.jsx
+  - ScanList.jsx
+  - UserDroptown.jsx
+  - Userinfo.jsx
+- **Pages:**
+  - FileUploadPage.jsx
+  - HuGeneratedForm.jsx
+  - HuGeneratedPage.jsx
+  - LoginPage.jsx
+  - SalesFormPage.jsx
+  - SalesPage.jsx
+  - ScannerFormPage.jsx
+  - ScannerPage.jsx
+- **Context:**
+  - AuthContext.jsx
+- **API:**
+  - FileUpload.api.js
+  - Hu_generated.api.js
+  - Sales.api.js
+  - Scan.api.js
+
+#### Backend (Django Rest Framework)
+- **Applications:**
+  - uploadfile
+  - hu_generated
+  - sales
+  - scanner
+- **Endpoints:**
+  - /api/sales
+  - /api/hu_generated
+  - /api/file_upload
+  - /api/scanner
+
+#### Database (SQLite)
+- **Tables:**
+  - sales
+  - hu_generated
+  - file_upload
+  - scanner
+
+### Data Flow
+- **Frontend to Backend:**
+  The frontend uses axios to send HTTP requests to the backend. These requests include form data and other necessary data for CRUD operations.
+- **Backend to Database:**
+  The backend processes the requests, validates the data, and saves it to the database.
+- **Database to Backend:**
+  The backend retrieves data from the database as needed and sends it back to the frontend.
+- **Backend to Frontend:**
+  The backend sends JSON responses to the frontend, which then updates the user interface.
+
+  ## Scalability
+**Scalability Strategies:**
+- **Horizontal Scalability:** Add more instances of the Django and React services.
+- **Vertical Scalability:** Increase the resources of existing instances.
+- **Load Balancing:** Use Nginx to balance the load between multiple backend instances.
+- **Caching:** Implement Redis to improve performance.
+- **Containerization:** Use Docker to containerize the application for easier deployment and scaling.
+
+  ## Deliverables
+- **Source Code:** GitHub repository
+- **Documentation:** Technical and user documentation
+- **Tests:** Description of tests performed and how to run them
+- **Deployment:** Instructions for deploying the project on a private server
+
+## Installation Guide
+
+### Prerequisites
+- Node.js
+- Python
+- Django
+- Vite
+
 # Installation
 Follow these steps to install and configure the project:
 # Backend
@@ -75,5 +190,7 @@ ExtractData of excel file
 ![Captura de pantalla (9)](https://github.com/user-attachments/assets/29deebab-2f72-419a-b509-44def024bfd4)
 
 # License
-This project is licensed under the MIT License. Check the `LICENSE` file for more details.
+This project is licensed under the Apache License. Check the `LICENSE` file for more details.
+## Contact
+If you have questions or suggestions, you can contact me at eberelcrac@gmail.com.
 Let me know if you need further refinement!
